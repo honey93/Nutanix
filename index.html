@@ -1,0 +1,99 @@
+<html ><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="index_main.css" rel="stylesheet" type="text/css">
+  </head><body ng-app="myApp">
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-right" ng-controller="apsctrl">
+            <h1 class="text-left text-success">Nutanix
+              <span id="subhead">-finding deals made easy!</span>
+              <span class="asdasd pull-right">
+                <button type="button" class="active btn btn-lg btn-success">API Hits
+                  <span class="badge">{{hits}}</span>
+                  <span>|</span>Total likes:
+                  <span class="badge">9</span>
+                </button>
+              </span>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // code to calculate hit counts
+                      var app = angular.module('myApp', []);
+					  
+		app.controller('apsctrl', function($scope, $http)
+{
+ $http.get("https://nutanix.0x10.info/api/deals?type=json&query=api_hits")
+                       .success(function (response) {$scope.hits = response.api_hits;});
+
+});		
+					  
+					  
+					  
+					  
+					  
+                      app.controller('customersCtrl', function($scope, $http) {
+					  
+					   //$scope.kio = [{likesr:0},{likesr:0},{likesr:0},{likesr:0},{likesr:0},{likesr:0}];
+					  
+                       $http.get("https://nutanix.0x10.info/api/deals?type=json&query=list_deals")
+                       .success(function (response) {$scope.names = response.deals;});
+                        
+                  
+			//	      $scope.plusOne = function(index) { 
+  //	$scope.kio[index].likesr += 1; 
+	//};
+				   
+                        
+                     });
+                      
+                   
+ 
+    
+  
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+                      // code to print product name and price in Left hand side.
+    </script>
+    <div class="section">
+      <div class="container">
+        <div class="row"  ng-controller="customersCtrl">
+          <div id="portfolio" class="col-md-4" ng-repeat="product in names">
+            <h2 > <span class="textp"> Product Name: </span>{{product.name}}</h2>
+            <h3> <span class="textp"> Provider: </span> {{product.provider}}</h3>
+            <img src="{{product.image}}" width="150" height="200" >
+            <h3> <span class="textp"> Ratings: </span >{{product.rating}}</h3>
+            <h3><a href="{{product.link}}"> Link</a></h3>
+            <h3> <span class="textp"> Actual Price: </span > {{product.actual_price}}</h3>
+            <h3>Final Price:{{product.actual_price - product.actual_price*parseInt(product.discount/10)}}</h3>
+            <button type="button" class="active btn btn-info btn-lg">
+              <span class="badge"> {{product.discount}}off</span>
+              <span>|</span>likes:
+              <span class="badge">9</span>
+            </button>
+         
+		  </div>
+        </div>
+      </div>
+    </div>
+  
+
+</body></html>
